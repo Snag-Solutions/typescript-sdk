@@ -1,6 +1,6 @@
 {
   "pkg": "@snagsolutions/sdk",
-  "githubRepo": "https://github.com/stainless-sdks/snag-solutions-typescript",
+  "githubRepo": "https://github.com/Snag-Solutions/typescript-sdk",
   "clientClass": "SnagSolutions",
   "methods": []
 }
