@@ -18,7 +18,13 @@ import * as Uploads from './core/uploads';
 import * as API from './resources/index';
 import { APIPromise } from './core/api-promise';
 import { AssetCreateAssetParams, AssetCreateAssetResponse, Assets } from './resources/assets';
-import { Auth, AuthConnectAuthParams, AuthConnectAuthResponse } from './resources/auth';
+import {
+  Auth,
+  AuthConnectAuthParams,
+  AuthConnectAuthResponse,
+  AuthConnectAuthVerifyParams,
+  AuthConnectAuthVerifyResponse,
+} from './resources/auth';
 import {
   TokenClaimCheckEligibilityParams,
   TokenClaimCheckEligibilityResponse,
@@ -798,7 +804,9 @@ export declare namespace SnagSolutions {
   export {
     Auth as Auth,
     type AuthConnectAuthResponse as AuthConnectAuthResponse,
+    type AuthConnectAuthVerifyResponse as AuthConnectAuthVerifyResponse,
     type AuthConnectAuthParams as AuthConnectAuthParams,
+    type AuthConnectAuthVerifyParams as AuthConnectAuthVerifyParams,
   };
 
   export {
