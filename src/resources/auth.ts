@@ -27,6 +27,17 @@ export class Auth extends APIResource {
   ): APIPromise<AuthConnectAuthResponse> {
     return this._client.get(path`/api/${authType}/auth`, { query, ...options });
   }
+
+  /**
+   * endpoint to verify and complete connecting an auth account to a Snag account
+   */
+  connectAuthVerify(
+    authType: 'tiktok' | 'reddit' | 'instagram',
+    query: AuthConnectAuthVerifyParams,
+    options?: RequestOptions,
+  ): APIPromise<AuthConnectAuthVerifyResponse> {
+    return this._client.get(path`/api/${authType}/auth/connect`, { query, ...options });
+  }
 }
 
 /**
@@ -37,6 +48,32 @@ export interface AuthConnectAuthResponse {
    * The URL to redirect to.
    */
   url: string;
+}
+
+/**
+ * 200 response for GET /api/{authType}/auth/connect. Success, conflict (account
+ * already linked), or verification error.
+ */
+export interface AuthConnectAuthVerifyResponse {
+  /**
+   * Whether the account was linked successfully
+   */
+  success: boolean;
+
+  /**
+   * The error message if the account was not linked successfully
+   */
+  error?: string;
+
+  /**
+   * The JWT state
+   */
+  jwtState?: string;
+
+  /**
+   * The message of the response
+   */
+  message?: string;
 }
 
 export interface AuthConnectAuthParams {
@@ -77,9 +114,38 @@ export interface AuthConnectAuthParams {
   websiteId?: string;
 }
 
+export interface AuthConnectAuthVerifyParams {
+  state: string;
+
+  code?: string;
+
+  /**
+   * The username or URL of the Instagram profile
+   */
+  instagramUsernameOrUrl?: string;
+
+  /**
+   * The URL of the Reddit profile
+   */
+  redditProfileUrl?: string;
+
+  /**
+   * The type of response to return, this is not valid for email auth, email auth
+   * only supports the redirect flow via verification link.
+   */
+  responseType?: 'redirect' | 'json';
+
+  /**
+   * The URL of the TikTok profile
+   */
+  tiktokProfileUrl?: string;
+}
+
 export declare namespace Auth {
   export {
     type AuthConnectAuthResponse as AuthConnectAuthResponse,
+    type AuthConnectAuthVerifyResponse as AuthConnectAuthVerifyResponse,
     type AuthConnectAuthParams as AuthConnectAuthParams,
+    type AuthConnectAuthVerifyParams as AuthConnectAuthVerifyParams,
   };
 }
